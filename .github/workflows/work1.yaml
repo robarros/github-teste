@@ -22,7 +22,7 @@ jobs:
         run: |
           echo "account=conta-dev" >> $GITHUB_ENV
           echo "service=srv-01" >> $GITHUB_ENV
-          echo "cluster=lab-ecs >> $GITHUB_ENV
+          echo "cluster=lab-ecs" >> $GITHUB_ENV
           echo "application=my-app" >> $GITHUB_ENV
           echo "deployment_group=my-group-app" >> $GITHUB_ENV
           echo "container_name=svc-my-app" >> $GITHUB_ENV
