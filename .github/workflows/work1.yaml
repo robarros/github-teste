@@ -1,0 +1,28 @@
+name: Define Variables
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+
+jobs:
+  define-vars:
+    runs-on: ubuntu-latest
+    outputs:
+      account: ${{ steps.set-vars.outputs.account }}
+      service: ${{ steps.set-vars.outputs.service }}
+      cluster: ${{ steps.set-vars.outputs.cluster }}
+      application: ${{ steps.set-vars.outputs.application }}
+      deployment_group: ${{ steps.set-vars.outputs.deployment_group }}
+      container_name: ${{ steps.set-vars.outputs.container_name }}
+    steps:
+      - name: Set Variables
+        id: set-vars
+        run: |
+          echo "account=ACCOUNT_DEV" >> $GITHUB_ENV
+          echo "service=service-FEATURE_NAME-MICROSERVICE_NAME" >> $GITHUB_ENV
+          echo "cluster=CLUSTER_NAME" >> $GITHUB_ENV
+          echo "application=FEATURE_NAME-MICROSERVICE_NAME" >> $GITHUB_ENV
+          echo "deployment_group=FEATURE_NAME-MICROSERVICE_NAME" >> $GITHUB_ENV
+          echo "container_name=container-FEATURE_NAME-MICROSERVICE_NAME" >> $GITHUB_ENV
