@@ -21,3 +21,4 @@ jobs:
           echo "Application: ${{ env.application }}"
           echo "Deployment Group: ${{ env.deployment_group }}"
           echo "Container Name: ${{ env.container_name }}"
+          echo $GITHUB_ENV

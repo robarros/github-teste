@@ -20,9 +20,10 @@ jobs:
       - name: Set Variables
         id: set-vars
         run: |
-          echo "account=ACCOUNT_DEV" >> $GITHUB_ENV
-          echo "service=service-FEATURE_NAME-MICROSERVICE_NAME" >> $GITHUB_ENV
-          echo "cluster=CLUSTER_NAME" >> $GITHUB_ENV
-          echo "application=FEATURE_NAME-MICROSERVICE_NAME" >> $GITHUB_ENV
-          echo "deployment_group=FEATURE_NAME-MICROSERVICE_NAME" >> $GITHUB_ENV
-          echo "container_name=container-FEATURE_NAME-MICROSERVICE_NAME" >> $GITHUB_ENV
+          echo "account=conta-dev" >> $GITHUB_ENV
+          echo "service=srv-01" >> $GITHUB_ENV
+          echo "cluster=lab-ecs >> $GITHUB_ENV
+          echo "application=my-app" >> $GITHUB_ENV
+          echo "deployment_group=my-group-app" >> $GITHUB_ENV
+          echo "container_name=svc-my-app" >> $GITHUB_ENV
+          echo $GITHUB_ENV
