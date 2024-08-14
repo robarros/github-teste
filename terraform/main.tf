@@ -4,7 +4,7 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket = "terraform"
+    bucket = "terraform.virtualti.net"
     key    = "my-python-app/terraform.tfstate"
     region = "us-east-1"
   }
