@@ -23,9 +23,14 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
+      - name: Get build outputs
+        id: get_outputs
+        run: |
+          echo "IMAGE_NAME=${{ needs.build.outputs.image_name }}"
+          echo "IMAGE_TAG=${{ needs.build.outputs.image_tag }}"
+        
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
-
 
       - name: Terraform Init
         working-directory: terraform
@@ -33,6 +38,6 @@ jobs:
 
       - name: Terraform Apply
         working-directory: terraform
-        env:
-          DOCKER_IMAGE_TAG: ${{ github.event.workflow_run.outputs.docker_image_tag }}
-        run: terraform apply -auto-approve -var "docker_image=${{ secrets.DOCKER_USERNAME }}/my-python-app:${{ env.DOCKER_IMAGE_TAG }}"
+        # env:
+        #   DOCKER_IMAGE_TAG: ${{ github.event.workflow_run.outputs.docker_image_tag }}
+        run: terraform apply -auto-approve -var "docker_image=${{ secrets.DOCKER_USERNAME }}/my-python-app:$IMAGE_TAG"
