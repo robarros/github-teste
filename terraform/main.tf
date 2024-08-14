@@ -4,15 +4,14 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket = "terraform.virtualti.net"
+    bucket = "terraform"
     key    = "my-python-app/terraform.tfstate"
     region = "us-east-1"
   }
 }
 
-
 data "aws_ecs_cluster" "my_cluster" {
-  cluster_name = "lab-ecs"
+  cluster_name = "my-ecs-cluster"
 }
 
 resource "aws_ecs_service" "my_service" {
@@ -20,6 +19,13 @@ resource "aws_ecs_service" "my_service" {
   cluster         = data.aws_ecs_cluster.my_cluster.id
   task_definition = aws_ecs_task_definition.my_task.arn
   desired_count   = 1
+  launch_type     = "FARGATE"
+
+  network_configuration {
+    subnets          = var.subnets
+    security_groups  = [var.security_group]
+    assign_public_ip = true
+  }
 }
 
 resource "aws_ecs_task_definition" "my_task" {
