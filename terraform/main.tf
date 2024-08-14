@@ -11,7 +11,7 @@ terraform {
 }
 
 data "aws_ecs_cluster" "my_cluster" {
-  cluster_name = "my-ecs-cluster"
+  cluster_name = "lab-ecs"
 }
 
 resource "aws_ecs_service" "my_service" {
