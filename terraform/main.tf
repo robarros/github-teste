@@ -24,7 +24,7 @@ resource "aws_ecs_service" "my_service" {
   network_configuration {
     subnets          = var.subnets
     security_groups  = [var.security_group]
-    assign_public_ip = true
+    assign_public_ip = false
   }
 }
 
@@ -37,7 +37,7 @@ resource "aws_ecs_task_definition" "my_task" {
 
   container_definitions = jsonencode([{
     name      = "my-python-app"
-    image     = "${var.docker_image}"
+    image     = var.docker_image
     cpu       = 256
     memory    = 512
     essential = true
