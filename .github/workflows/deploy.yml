@@ -28,6 +28,8 @@ jobs:
         run: |
           echo "IMAGE_NAME=${{ needs.build.outputs.image_name }}"
           echo "IMAGE_TAG=${{ needs.build.outputs.image_tag }}"
+          echo "IMAGE_NAME=${{ needs.build.outputs.image_name }}" >> $GITHUB_ENV
+          echo "IMAGE_TAG=${{ needs.build.outputs.image_tag }}" >> $GITHUB_ENV
         
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
@@ -40,4 +42,7 @@ jobs:
         working-directory: terraform
         # env:
         #   DOCKER_IMAGE_TAG: ${{ github.event.workflow_run.outputs.docker_image_tag }}
-        run: terraform apply -auto-approve -var "docker_image=${{ secrets.DOCKER_USERNAME }}/my-python-app:$IMAGE_TAG"
+        run: |
+          IMAGE_NAME=${{ env.IMAGE_NAME }}
+          IMAGE_TAG=${{ env.IMAGE_TAG }}
+          terraform apply -auto-approve -var "docker_image=${{ secrets.DOCKER_USERNAME }}/my-python-app:$IMAGE_TAG"
