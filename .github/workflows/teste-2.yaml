@@ -1,17 +1,16 @@
-name: Use Tag
+name: Deploy
 
 on:
   workflow_run:
-    workflows: ["Create Tag"]
+    workflows: ["Build"]
     types:
       - completed
 
 jobs:
-  use_tag:
+  deploy:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
 
-      - name: Retrieve the tag from previous workflow
-        run: echo "Tag from previous workflow is ${{ github.event.workflow_run.outputs.tag_value }}"
+    steps:
+      - name: Use SHA tag from Build
+        run: echo "Using image tag: ${{ env.IMAGE_TAG }}"
+        

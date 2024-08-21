@@ -1,4 +1,4 @@
-name: Create Tag
+name: Build
 
 on:
   push:
@@ -6,19 +6,12 @@ on:
       - main
 
 jobs:
-  create_tag:
+  build:
     runs-on: ubuntu-latest
-    outputs:
-      tag_value: ${{ steps.set_tag.outputs.tag }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Create a new tag
-        id: set_tag
-        run: |
-          TAG="v1.0.0"
-          echo "::set-output name=tag::${TAG}"
-
-      - name: Persist the tag in outputs
-        run: echo "TAG=$TAG" >> $GITHUB_ENV
+      - name: Export SHA tag
+        run: echo "IMAGE_TAG=${{ github.sha }}" >> $GITHUB_ENV
