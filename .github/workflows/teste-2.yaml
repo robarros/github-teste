@@ -1,23 +1,17 @@
-name: Deploy
+name: Use Tag
 
 on:
   workflow_run:
-    workflows: ["Build"]
+    workflows: ["Create Tag"]
     types:
       - completed
 
 jobs:
-  deploy:
+  use_tag:
     runs-on: ubuntu-latest
-    outputs:
-      image_tag: ${{ needs.build.outputs.image_tag }}
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-
-    - name: Echo image name and tag
-      run: |
-        echo "Deploying image: ${{ needs.build.outputs.image_tag }}"
-
+      - name: Retrieve the tag from previous workflow
+        run: echo "Tag from previous workflow is ${{ github.event.workflow_run.outputs.tag_value }}"

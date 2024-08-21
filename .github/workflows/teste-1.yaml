@@ -1,4 +1,4 @@
-name: Build
+name: Create Tag
 
 on:
   push:
@@ -6,27 +6,19 @@ on:
       - main
 
 jobs:
-  build:
+  create_tag:
     runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-
-    - name: Log in to Docker Hub
-      uses: docker/login-action@v2
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-
-    - name: Generate image tag
-      id: tag
-      run: echo "IMAGE_TAG=${{ secrets.DOCKER_USERNAME }}/myapp:${{ github.sha }}" >> $GITHUB_ENV
-
-    - name: Export image tag as output
-      id: export_tag
-      run: echo "IMAGE_TAG=${{ secrets.DOCKER_USERNAME }}/myapp:${{ github.sha }}" >> $GITHUB_ENV
-
     outputs:
-      image_tag: ${{ steps.export_tag.outputs.IMAGE_TAG }}
+      tag_value: ${{ steps.set_tag.outputs.tag }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create a new tag
+        id: set_tag
+        run: |
+          TAG="v1.0.0"
+          echo "::set-output name=tag::${TAG}"
+
+      - name: Persist the tag in outputs
+        run: echo "TAG=$TAG" >> $GITHUB_ENV
