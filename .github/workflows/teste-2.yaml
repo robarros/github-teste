@@ -12,5 +12,4 @@ jobs:
 
     steps:
       - name: Use SHA tag from Build
-        run: echo "Using image tag: ${{ env.IMAGE_TAG }}"
-        
+        run: echo "a imagem é  ${{ env.IMAGE_TAG }}"
