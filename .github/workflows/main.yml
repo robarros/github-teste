@@ -21,6 +21,9 @@ jobs:
       - name: Echo dynamic variable
         run: echo "O Valor da Variavel é :" ${{steps.set-output.outputs.dynamic-var}}
 
+      - name: Ler variavel Github env
+        run: echo "O Valor da variavel é ${{ env.dynamic-var-value }}"
+
 
   call-reusable-workflow:
     needs: generate-dynamic-var
