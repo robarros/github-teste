@@ -13,8 +13,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
 
     - name: Log in to Docker Hub
       uses: docker/login-action@v2
@@ -26,5 +24,9 @@ jobs:
       id: tag
       run: echo "IMAGE_TAG=${{ secrets.DOCKER_USERNAME }}/myapp:${{ github.sha }}" >> $GITHUB_ENV
 
-    - name: Export image tag
+    - name: Export image tag as output
+      id: export_tag
       run: echo "IMAGE_TAG=${{ secrets.DOCKER_USERNAME }}/myapp:${{ github.sha }}" >> $GITHUB_ENV
+
+    outputs:
+      image_tag: ${{ steps.export_tag.outputs.IMAGE_TAG }}
