@@ -1,17 +1,21 @@
 name: Build
 
 on:
-  push:
-    branches:
-      - main
-
+  workflow_call:
+    outputs:
+      tag:
+        description: Tag image
+        value: ${{ jobs.build.outputs.tag }}
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    outputs:
+      tag: ${{ steps.build.outputs.tag }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-      - name: Export SHA tag
-        run: echo "IMAGE_TAG=${{ github.sha }}" >> $GITHUB_ENV
+      - name: Deploy
+        id: build
+        run: |
+          echo "tag=${GITHUB_SHA}" >> $GITHUB_ENV
