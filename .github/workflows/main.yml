@@ -17,6 +17,7 @@ jobs:
         run: |
           echo "dynamic-var-value=$(date +%s)" >> $GITHUB_ENV
           echo "::set-output name=dynamic-var::$(date +%s)"
+          echo "$dynamic-var-value"
 
   call-reusable-workflow:
     needs: generate-dynamic-var
