@@ -29,3 +29,4 @@ jobs:
         run: |
           echo "Deploying application with tag: ${{ steps.build_workflow.outputs.tag }}"
           # Comando de deploy usando a tag
+/home/ronaldo/github/.github/workflows/teste-2.yaml
