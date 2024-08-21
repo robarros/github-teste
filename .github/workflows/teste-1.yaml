@@ -1,11 +1,11 @@
 name: Build
 
 on:
-  workflow_call:
-    outputs:
-      tag:
-        description: Tag image
-        value: ${{ jobs.build.outputs.tag }}
+  workflow_run:
+  push:
+    branches:
+      - main
+
 
 jobs:
   build:
