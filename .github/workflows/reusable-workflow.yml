@@ -13,4 +13,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print dynamic variable
-        run: echo "The dynamic variable is ${{ inputs['dynamic-var'] }}"
+        run: echo "O Valor da Variavel é ${{ inputs['dynamic-var'] }}"
