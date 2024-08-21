@@ -6,6 +6,7 @@ on:
       tag:
         description: Tag image
         value: ${{ jobs.build.outputs.tag }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,3 +20,4 @@ jobs:
         id: build
         run: |
           echo "tag=${GITHUB_SHA}" >> $GITHUB_ENV
+          echo "::set-output name=tag::${GITHUB_SHA}"

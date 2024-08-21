@@ -1,32 +1,31 @@
-name: Deploy
+# name: Deploy
 
-on:
-  push:
-    branches:
-      - main
+# on:
+#   push:
+#     branches:
+#       - main
 
-jobs:
-  build_and_deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+# jobs:
+#   build_and_deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout repo
+#         uses: actions/checkout@v4
 
-      - name: Call Build Workflow
-        id: build_workflow
-        uses: ./.github/workflows/teste-1.yaml  # Caminho para o workflow "Build"
-        # with:
-        #   param1: value1  # Se o workflow "Build" precisar de parâmetros, você pode passá-los aqui.
+#       - name: Call Build Workflow
+#         id: build_workflow
+#         uses: ./.github/workflows/teste-1.yaml  # Caminho para o workflow "Build"
+#         # with:
+#         #   param1: value1  # Se o workflow "Build" precisar de parâmetros, você pode passá-los aqui.
         
-      # Este passo só será executado se o workflow de build for bem-sucedido
-      - name: Use Build Tag
-        if: ${{ success() }}  # Garante que o deploy só ocorrerá se o build for bem-sucedido
-        run: |
-          echo "Tag from Build: ${{ steps.build_workflow.outputs.tag }}"
+#       # Este passo só será executado se o workflow de build for bem-sucedido
+#       - name: Use Build Tag
+#         if: ${{ success() }}  # Garante que o deploy só ocorrerá se o build for bem-sucedido
+#         run: |
+#           echo "Tag from Build: ${{ steps.build_workflow.outputs.tag }}"
 
-      - name: Deploy Application
-        if: ${{ success() }}  # Garante que o deploy só ocorrerá se o build for bem-sucedido
-        run: |
-          echo "Deploying application with tag: ${{ steps.build_workflow.outputs.tag }}"
-          # Comando de deploy usando a tag
-/home/ronaldo/github/.github/workflows/teste-2.yaml
+#       - name: Deploy Application
+#         if: ${{ success() }}  # Garante que o deploy só ocorrerá se o build for bem-sucedido
+#         run: |
+#           echo "Deploying application with tag: ${{ steps.build_workflow.outputs.tag }}"
+#           # Comando de deploy usando a tag
