@@ -1,5 +1,5 @@
 # .github/workflows/main.yml
-name: Main Workflow
+
 
 on:
   push:
@@ -10,23 +10,20 @@ jobs:
   generate-dynamic-var:
     runs-on: ubuntu-latest
     outputs:
-      dynamic-var: ${{ steps.set-output.outputs.dynamic-var }}
+      dynamic-var: ${{ steps.set-output.outputs.dynamic-var-value }}
     steps:
       - name: Generate dynamic variable
         id: set-output
         run: |
-          echo "dynamic-var-value=$(date +%s)" >> $GITHUB_ENV
-          echo "::set-output name=dynamic-var::$(date +%s)"
+          echo "dynamic-var-value=$(date +%s)" >> $GITHUB_OUTPUT
 
       - name: Echo dynamic variable
-        run: echo "O Valor da Variavel é :" ${{steps.set-output.outputs.dynamic-var}}
-
-      - name: Ler variavel Github env
-        run: echo "O Valor da variavel é ${{ env.dynamic-var-value }}"
-
+        run: echo "O Valor da Variavel é :" ${{ steps.set-output.outputs.dynamic-var-value }}
 
   call-reusable-workflow:
     needs: generate-dynamic-var
     uses: ./.github/workflows/reusable-workflow.yml
     with:
       dynamic-var: ${{ needs.generate-dynamic-var.outputs.dynamic-var }}
+
+
